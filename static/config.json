@@ -6,6 +6,8 @@
   "logoMargin": ".1em",
   "redirectRootNoLogin": "/main/all",
   "redirectRootLogin": "/main/friends",
+  "showPublicTimeline": true,
+  "showPublicExternalTimeline": true,
   "showInstanceSpecificPanel": false,
   "collapseMessageWithSubject": false,
   "scopeCopy": true,
