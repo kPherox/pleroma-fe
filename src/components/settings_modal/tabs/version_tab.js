@@ -1,7 +1,7 @@
 import { extractCommit } from 'src/services/version/version.service'
 
-const pleromaFeCommitUrl = 'https://git.pleroma.social/pleroma/pleroma-fe/commit/'
-const pleromaBeCommitUrl = 'https://git.pleroma.social/pleroma/pleroma/commit/'
+const pleromaFeCommitUrl = 'https://github.com/kPherox/pleroma-fe/commit/'
+const pleromaBeCommitUrl = 'https://github.com/kPherox/pleroma/commit/'
 
 const VersionTab = {
   data () {
