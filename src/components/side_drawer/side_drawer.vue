@@ -79,12 +79,18 @@
             </span>
           </router-link>
         </li>
-        <li @click="toggleDrawer">
+        <li
+          v-if="$store.state.instance.showPublicTimeline"
+          @click="toggleDrawer"
+        >
           <router-link :to="{ name: 'public-timeline' }">
             {{ $t("nav.public_tl") }}
           </router-link>
         </li>
-        <li @click="toggleDrawer">
+        <li
+          v-if="$store.state.instance.showPublicExternalTimeline"
+          @click="toggleDrawer"
+        >
           <router-link :to="{ name: 'public-external-timeline' }">
             {{ $t("nav.twkn") }}
           </router-link>
