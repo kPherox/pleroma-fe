@@ -173,6 +173,21 @@ const UserSettings = {
     changeVis (visibility) {
       this.newDefaultScope = visibility
     },
+    getField (index) {
+      return this.newFields[index] || { name: '', value: '' }
+    },
+    setFieldName (index, name) {
+      this.newFields[index] = {
+        name: name,
+        value: this.getField(index).value
+      }
+    },
+    setFieldValue (index, value) {
+      this.newFields[index] = {
+        name: this.getField(index).name,
+        value: value
+      }
+    },
     uploadFile (slot, e) {
       const file = e.target.files[0]
       if (!file) { return }
