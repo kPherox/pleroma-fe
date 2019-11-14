@@ -69,7 +69,7 @@
           v-if="currentUser && currentUser.locked"
           @click="toggleDrawer"
         >
-          <router-link to="/friend-requests">
+          <router-link :to="{ name: 'friend-requests' }">
             {{ $t("nav.friend_requests") }}
             <span
               v-if="followRequestCount > 0"
@@ -80,12 +80,12 @@
           </router-link>
         </li>
         <li @click="toggleDrawer">
-          <router-link to="/main/public">
+          <router-link :to="{ name: 'public-timeline' }">
             {{ $t("nav.public_tl") }}
           </router-link>
         </li>
         <li @click="toggleDrawer">
-          <router-link to="/main/all">
+          <router-link :to="{ name: 'public-external-timeline' }">
             {{ $t("nav.twkn") }}
           </router-link>
         </li>
