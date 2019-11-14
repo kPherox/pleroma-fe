@@ -124,6 +124,10 @@ const UserSettings = {
         direct: { selected: this.newDefaultScope === 'direct' }
       }
     },
+    newFields () {
+      return this.$store.state.users.currentUser.fields
+        .map(field => ({ name: field.name, value: field.value }))
+    },
     currentSaveStateNotice () {
       return this.$store.state.interface.settings.currentSaveStateNotice
     },
@@ -147,6 +151,7 @@ const UserSettings = {
             // Backend notation.
             /* eslint-disable camelcase */
             display_name: this.newName,
+            fields_attributes: this.newFields.filter(el => el != null),
             default_scope: this.newDefaultScope,
             no_rich_text: this.newNoRichText,
             hide_follows: this.hideFollows,
