@@ -1,6 +1,8 @@
 {
   "alwaysShowSubjectInput": true,
   "background": "/static/aurora_borealis.jpg",
+  "showPublicTimeline": true,
+  "showPublicExternalTimeline": true,
   "collapseMessageWithSubject": false,
   "disableChat": false,
   "greentext": false,

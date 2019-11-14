@@ -80,7 +80,7 @@
           </router-link>
         </li>
         <li
-          v-if="currentUser || !privateMode"
+          v-if="currentUser || !privateMode && $store.state.instance.showPublicTimeline"
           @click="toggleDrawer"
         >
           <router-link to="/main/public">
@@ -88,7 +88,7 @@
           </router-link>
         </li>
         <li
-          v-if="federating && (currentUser || !privateMode)"
+          v-if="federating && (currentUser || !privateMode && $store.state.instance.showPublicExternalTimeline)"
           @click="toggleDrawer"
         >
           <router-link to="/main/all">
