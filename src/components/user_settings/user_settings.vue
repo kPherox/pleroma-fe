@@ -119,10 +119,10 @@
                 {{ $t('settings.discoverable') }}
               </Checkbox>
             </p>
-            <div>
+            <div v-if="maxFields > 0">
               <p>{{ $t('settings.profile_fields.label') }}</p>
               <div
-                v-for="i in 10"
+                v-for="i in maxFields"
                 :key="i"
                 class="profile-fields"
               >

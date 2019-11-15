@@ -124,6 +124,12 @@ const UserSettings = {
         direct: { selected: this.newDefaultScope === 'direct' }
       }
     },
+    fieldsLimits () {
+      return this.$store.state.instance.fieldsLimits
+    },
+    maxFields () {
+      return this.fieldsLimits ? this.fieldsLimits.maxFields : 0
+    },
     newFields () {
       return this.$store.state.users.currentUser.fields
         .map(field => ({ name: field.name, value: field.value }))
