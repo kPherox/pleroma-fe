@@ -6,9 +6,9 @@
   "logoMargin": ".1em",
   "redirectRootNoLogin": "/about",
   "redirectRootLogin": "/main/friends",
-  "showPublicTimeline": true,
-  "showPublicExternalTimeline": true,
-  "showInstanceSpecificPanel": false,
+  "showPublicTimeline": false,
+  "showPublicExternalTimeline": false,
+  "showInstanceSpecificPanel": true,
   "collapseMessageWithSubject": false,
   "scopeCopy": true,
   "subjectLineBehavior": "email",
@@ -20,6 +20,6 @@
   "webPushNotifications": false,
   "noAttachmentLinks": false,
   "nsfwCensorImage": "",
-  "showFeaturesPanel": true,
+  "showFeaturesPanel": false,
   "minimalScopesMode": false
 }
