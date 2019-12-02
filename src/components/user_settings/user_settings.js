@@ -150,7 +150,7 @@ const UserSettings = {
   },
   methods: {
     updateProfile () {
-      let fields = this.newFields.filter(el => el != null && el.name != '')
+      let fields = this.newFields.filter(el => el != null && el.name !== '')
       this.newFields.length = fields.length
       merge(this.newFields, fields)
       this.$store.state.api.backendInteractor
