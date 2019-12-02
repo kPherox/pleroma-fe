@@ -128,6 +128,7 @@
               >
                 <EmojiInput
                   :suggest="emojiSuggestor"
+                  :value="getField(i - 1).name"
                   hide-emoji-button
                   @input="setFieldName(i - 1, $event.target.value)"
                 >
@@ -139,6 +140,7 @@
                 </EmojiInput>
                 <EmojiInput
                   :suggest="emojiSuggestor"
+                  :value="getField(i - 1).value"
                   hide-emoji-button
                   @input="setFieldValue(i - 1, $event.target.value)"
                 >
