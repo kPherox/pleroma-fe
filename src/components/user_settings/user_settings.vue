@@ -130,24 +130,24 @@
                   :suggest="emojiSuggestor"
                   :value="getField(i - 1).name"
                   hide-emoji-button
-                  @input="setFieldName(i - 1, $event.target.value)"
+                  @input="setField(i - 1, { name: $event.target.value })"
                 >
                   <input
                     :placeholder="$t('settings.profile_fields.name')"
                     :value="getField(i - 1).name"
-                    @input="setFieldName(i - 1, $event.target.value)"
+                    @input="setField(i - 1, { name: $event.target.value })"
                   >
                 </EmojiInput>
                 <EmojiInput
                   :suggest="emojiSuggestor"
                   :value="getField(i - 1).value"
                   hide-emoji-button
-                  @input="setFieldValue(i - 1, $event.target.value)"
+                  @input="setField(i - 1, { value: $event.target.value })"
                 >
                   <input
                     :placeholder="$t('settings.profile_fields.value')"
                     :value="getField(i - 1).value"
-                    @input="setFieldValue(i - 1, $event.target.value)"
+                    @input="setField(i - 1, { value: $event.target.value })"
                   >
                 </EmojiInput>
               </div>
