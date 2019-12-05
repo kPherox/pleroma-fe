@@ -122,32 +122,32 @@
             <div v-if="maxFields > 0">
               <p>{{ $t('settings.profile_fields.label') }}</p>
               <div
-                v-for="i in maxFields"
+                v-for="(_, i) in maxFields"
                 :key="i"
                 class="profile-fields"
               >
                 <EmojiInput
                   :suggest="emojiSuggestor"
-                  :value="getField(i - 1).name"
+                  :value="getField(i).name"
                   hide-emoji-button
-                  @input="setField(i - 1, { name: $event.target.value })"
+                  @input="setField(i, { name: $event.target.value })"
                 >
                   <input
                     :placeholder="$t('settings.profile_fields.name')"
-                    :value="getField(i - 1).name"
-                    @input="setField(i - 1, { name: $event.target.value })"
+                    :value="getField(i).name"
+                    @input="setField(i, { name: $event.target.value })"
                   >
                 </EmojiInput>
                 <EmojiInput
                   :suggest="emojiSuggestor"
-                  :value="getField(i - 1).value"
+                  :value="getField(i).value"
                   hide-emoji-button
-                  @input="setField(i - 1, { value: $event.target.value })"
+                  @input="setField(i, { value: $event.target.value })"
                 >
                   <input
                     :placeholder="$t('settings.profile_fields.value')"
-                    :value="getField(i - 1).value"
-                    @input="setField(i - 1, { value: $event.target.value })"
+                    :value="getField(i).value"
+                    @input="setField(i, { value: $event.target.value })"
                   >
                 </EmojiInput>
               </div>
