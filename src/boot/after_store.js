@@ -109,6 +109,9 @@ const setSettings = async ({ apiConfig, staticConfig, store }) => {
   copyInstanceOption('noAttachmentLinks')
   copyInstanceOption('showFeaturesPanel')
 
+  copyInstanceOption('showPublicTimeline')
+  copyInstanceOption('showPublicExternalTimeline')
+
   return store.dispatch('setTheme', config['theme'])
 }
 
