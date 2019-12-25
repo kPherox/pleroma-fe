@@ -4,9 +4,11 @@
   "logo": "/static/logo.png",
   "logoMask": true,
   "logoMargin": ".1em",
-  "redirectRootNoLogin": "/main/all",
+  "redirectRootNoLogin": "/about",
   "redirectRootLogin": "/main/friends",
-  "showInstanceSpecificPanel": false,
+  "showPublicTimeline": false,
+  "showPublicExternalTimeline": false,
+  "showInstanceSpecificPanel": true,
   "collapseMessageWithSubject": false,
   "scopeCopy": true,
   "subjectLineBehavior": "email",
@@ -18,6 +20,6 @@
   "webPushNotifications": false,
   "noAttachmentLinks": false,
   "nsfwCensorImage": "",
-  "showFeaturesPanel": true,
+  "showFeaturesPanel": false,
   "minimalScopesMode": false
 }

@@ -28,12 +28,12 @@
             </span>
           </router-link>
         </li>
-        <li v-if="currentUser || !privateMode">
+        <li v-if="currentUser || !privateMode && $store.state.instance.showPublicTimeline">
           <router-link :to="{ name: 'public-timeline' }">
             <i class="button-icon icon-users" /> {{ $t("nav.public_tl") }}
           </router-link>
         </li>
-        <li v-if="federating && !privateMode">
+        <li v-if="federating && (currentUser || !privateMode && $store.state.instance.showPublicExternalTimeline)">
           <router-link :to="{ name: 'public-external-timeline' }">
             <i class="button-icon icon-globe" /> {{ $t("nav.twkn") }}
           </router-link>
