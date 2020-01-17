@@ -32,7 +32,7 @@ const getNotificationPermission = () => {
 }
 
 const blockUser = (store, id) => {
-  return store.rootState.api.backendInteractor.blockUser(id)
+  return store.rootState.api.backendInteractor.blockUser({ id })
     .then((relationship) => {
       store.commit('updateUserRelationship', [relationship])
       store.commit('addBlockId', id)
@@ -43,12 +43,12 @@ const blockUser = (store, id) => {
 }
 
 const unblockUser = (store, id) => {
-  return store.rootState.api.backendInteractor.unblockUser(id)
+  return store.rootState.api.backendInteractor.unblockUser({ id })
     .then((relationship) => store.commit('updateUserRelationship', [relationship]))
 }
 
 const muteUser = (store, id) => {
-  return store.rootState.api.backendInteractor.muteUser(id)
+  return store.rootState.api.backendInteractor.muteUser({ id })
     .then((relationship) => {
       store.commit('updateUserRelationship', [relationship])
       store.commit('addMuteId', id)
@@ -56,7 +56,7 @@ const muteUser = (store, id) => {
 }
 
 const unmuteUser = (store, id) => {
-  return store.rootState.api.backendInteractor.unmuteUser(id)
+  return store.rootState.api.backendInteractor.unmuteUser({ id })
     .then((relationship) => store.commit('updateUserRelationship', [relationship]))
 }
 
@@ -70,6 +70,16 @@ const hideReblogs = (store, userId) => {
 const showReblogs = (store, userId) => {
   return store.rootState.api.backendInteractor.followUser({ id: userId, reblogs: true })
     .then((relationship) => store.commit('updateUserRelationship', [relationship]))
+}
+
+const muteDomain = (store, domain) => {
+  return store.rootState.api.backendInteractor.muteDomain({ domain })
+    .then(() => store.commit('addDomainMute', domain))
+}
+
+const unmuteDomain = (store, domain) => {
+  return store.rootState.api.backendInteractor.unmuteDomain({ domain })
+    .then(() => store.commit('removeDomainMute', domain))
 }
 
 export const mutations = {
@@ -175,6 +185,20 @@ export const mutations = {
   addMuteId (state, muteId) {
     if (state.currentUser.muteIds.indexOf(muteId) === -1) {
       state.currentUser.muteIds.push(muteId)
+    }
+  },
+  saveDomainMutes (state, domainMutes) {
+    state.currentUser.domainMutes = domainMutes
+  },
+  addDomainMute (state, domain) {
+    if (state.currentUser.domainMutes.indexOf(domain) === -1) {
+      state.currentUser.domainMutes.push(domain)
+    }
+  },
+  removeDomainMute (state, domain) {
+    const index = state.currentUser.domainMutes.indexOf(domain)
+    if (index !== -1) {
+      state.currentUser.domainMutes.splice(index, 1)
     }
   },
   setPinnedToUser (state, status) {
@@ -297,6 +321,25 @@ const users = {
     unmuteUsers (store, ids = []) {
       return Promise.all(ids.map(id => unmuteUser(store, id)))
     },
+    fetchDomainMutes (store) {
+      return store.rootState.api.backendInteractor.fetchDomainMutes()
+        .then((domainMutes) => {
+          store.commit('saveDomainMutes', domainMutes)
+          return domainMutes
+        })
+    },
+    muteDomain (store, domain) {
+      return muteDomain(store, domain)
+    },
+    unmuteDomain (store, domain) {
+      return unmuteDomain(store, domain)
+    },
+    muteDomains (store, domains = []) {
+      return Promise.all(domains.map(domain => muteDomain(store, domain)))
+    },
+    unmuteDomains (store, domain = []) {
+      return Promise.all(domain.map(domain => unmuteDomain(store, domain)))
+    },
     fetchFriends ({ rootState, commit }, id) {
       const user = rootState.users.usersObject[id]
       const maxId = last(user.friendIds)
@@ -324,11 +367,11 @@ const users = {
       commit('clearFollowers', userId)
     },
     subscribeUser ({ rootState, commit }, id) {
-      return rootState.api.backendInteractor.subscribeUser(id)
+      return rootState.api.backendInteractor.subscribeUser({ id })
         .then((relationship) => commit('updateUserRelationship', [relationship]))
     },
     unsubscribeUser ({ rootState, commit }, id) {
-      return rootState.api.backendInteractor.unsubscribeUser(id)
+      return rootState.api.backendInteractor.unsubscribeUser({ id })
         .then((relationship) => commit('updateUserRelationship', [relationship]))
     },
     toggleActivationStatus ({ rootState, commit }, user) {
@@ -373,8 +416,10 @@ const users = {
     },
     addNewNotifications (store, { notifications }) {
       const users = map(notifications, 'from_profile')
+      const targetUsers = map(notifications, 'target')
       const notificationIds = notifications.map(_ => _.id)
       store.commit('addNewUsers', users)
+      store.commit('addNewUsers', targetUsers)
 
       const notificationsObject = store.rootState.statuses.notifications.idStore
       const relevantNotifications = Object.entries(notificationsObject)
@@ -387,7 +432,7 @@ const users = {
       })
     },
     searchUsers (store, query) {
-      return store.rootState.api.backendInteractor.searchUsers(query)
+      return store.rootState.api.backendInteractor.searchUsers({ query })
         .then((users) => {
           store.commit('addNewUsers', users)
           return users
@@ -399,7 +444,9 @@ const users = {
       let rootState = store.rootState
 
       try {
-        let data = await rootState.api.backendInteractor.register(userInfo)
+        let data = await rootState.api.backendInteractor.register(
+          { params: { ...userInfo } }
+        )
         store.commit('signUpSuccess')
         store.commit('setToken', data.access_token)
         store.dispatch('loginUser', data.access_token)
@@ -436,10 +483,10 @@ const users = {
           store.commit('clearCurrentUser')
           store.dispatch('disconnectFromSocket')
           store.commit('clearToken')
-          store.dispatch('stopFetching', 'friends')
+          store.dispatch('stopFetchingTimeline', 'friends')
           store.commit('setBackendInteractor', backendInteractorService(store.getters.getToken()))
-          store.dispatch('stopFetching', 'notifications')
-          store.dispatch('stopFetching', 'followRequest')
+          store.dispatch('stopFetchingNotifications')
+          store.dispatch('stopFetchingFollowRequests')
           store.commit('clearNotifications')
           store.commit('resetStatuses')
         })
@@ -456,6 +503,7 @@ const users = {
               user.credentials = accessToken
               user.blockIds = []
               user.muteIds = []
+              user.domainMutes = []
               commit('setCurrentUser', user)
               commit('addNewUsers', [user])
 
@@ -474,11 +522,24 @@ const users = {
                 store.dispatch('initializeSocket')
               }
 
-              // Start getting fresh posts.
-              store.dispatch('startFetchingTimeline', { timeline: 'friends' })
+              const startPolling = () => {
+                // Start getting fresh posts.
+                store.dispatch('startFetchingTimeline', { timeline: 'friends' })
 
-              // Start fetching notifications
-              store.dispatch('startFetchingNotifications')
+                // Start fetching notifications
+                store.dispatch('startFetchingNotifications')
+              }
+
+              if (store.getters.mergedConfig.useStreamingApi) {
+                store.dispatch('enableMastoSockets').catch((error) => {
+                  console.error('Failed initializing MastoAPI Streaming socket', error)
+                  startPolling()
+                }).then(() => {
+                  setTimeout(() => store.dispatch('setNotificationsSilence', false), 10000)
+                })
+              } else {
+                startPolling()
+              }
 
               // Get user mutes
               store.dispatch('fetchMutes')
