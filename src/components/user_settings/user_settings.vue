@@ -38,7 +38,7 @@
               <input
                 id="username"
                 v-model="newName"
-                classname="name-changer"
+                class="name-changer"
               >
             </EmojiInput>
             <p>{{ $t('settings.bio') }}</p>
@@ -49,7 +49,7 @@
             >
               <textarea
                 v-model="newBio"
-                classname="bio"
+                class="bio"
               />
             </EmojiInput>
             <p>

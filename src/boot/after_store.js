@@ -110,6 +110,9 @@ const setSettings = async ({ apiConfig, staticConfig, store }) => {
   copyInstanceOption('showFeaturesPanel')
   copyInstanceOption('hideSitename')
 
+  copyInstanceOption('showPublicTimeline')
+  copyInstanceOption('showPublicExternalTimeline')
+
   return store.dispatch('setTheme', config['theme'])
 }
 
