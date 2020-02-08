@@ -119,6 +119,39 @@
                 {{ $t('settings.discoverable') }}
               </Checkbox>
             </p>
+            <div v-if="maxFields > 0">
+              <p>{{ $t('settings.profile_fields.label') }}</p>
+              <div
+                v-for="(_, i) in maxFields"
+                :key="i"
+                class="profile-fields"
+              >
+                <EmojiInput
+                  :suggest="emojiSuggestor"
+                  :value="getField(i).name"
+                  hide-emoji-button
+                  @input="setField(i, { name: $event.target.value })"
+                >
+                  <input
+                    :placeholder="$t('settings.profile_fields.name')"
+                    :value="getField(i).name"
+                    @input="setField(i, { name: $event.target.value })"
+                  >
+                </EmojiInput>
+                <EmojiInput
+                  :suggest="emojiSuggestor"
+                  :value="getField(i).value"
+                  hide-emoji-button
+                  @input="setField(i, { value: $event.target.value })"
+                >
+                  <input
+                    :placeholder="$t('settings.profile_fields.value')"
+                    :value="getField(i).value"
+                    @input="setField(i, { value: $event.target.value })"
+                  >
+                </EmojiInput>
+              </div>
+            </div>
             <button
               :disabled="newName && newName.length === 0"
               class="btn btn-default"
@@ -708,6 +741,15 @@
 
   .setting-subitem {
     margin-left: 1.75em;
+  }
+
+  .profile-fields {
+    display: flex;
+
+    &>.emoji-input {
+      flex: 1 1 auto;
+      margin: 0 .2em .5em;
+    }
   }
 }
 </style>
