@@ -1,31 +1,33 @@
 {
   "about": {
-    "staff": "Staff",
-    "federation": "Federation",
-    "mrf_policies": "Enabled MRF Policies",
-    "mrf_policies_desc": "MRF policies manipulate the federation behaviour of the instance.  The following policies are enabled:",
-    "mrf_policy_simple": "Instance-specific Policies",
-    "mrf_policy_simple_accept": "Accept",
-    "mrf_policy_simple_accept_desc": "This instance only accepts messages from the following instances:",
-    "mrf_policy_simple_reject": "Reject",
-    "mrf_policy_simple_reject_desc": "This instance will not accept messages from the following instances:",
-    "mrf_policy_simple_quarantine": "Quarantine",
-    "mrf_policy_simple_quarantine_desc": "This instance will send only public posts to the following instances:",
-    "mrf_policy_simple_ftl_removal": "Removal from \"The Whole Known Network\" Timeline",
-    "mrf_policy_simple_ftl_removal_desc": "This instance removes these instances from \"The Whole Known Network\" timeline:",
-    "mrf_policy_simple_media_removal": "Media Removal",
-    "mrf_policy_simple_media_removal_desc": "This instance removes media from posts on the following instances:",
-    "mrf_policy_simple_media_nsfw": "Media Force-set As Sensitive",
-    "mrf_policy_simple_media_nsfw_desc": "This instance forces media to be set sensitive in posts on the following instances:",
     "mrf": {
+      "federation": "Federation",
       "keyword": {
         "keyword_policies": "Keyword Policies",
         "ftl_removal": "Removal from \"The Whole Known Network\" Timeline",
         "reject": "Reject",
         "replace": "Replace",
         "is_replaced_by": "→"
+      },
+      "mrf_policies": "Enabled MRF Policies",
+      "mrf_policies_desc": "MRF policies manipulate the federation behaviour of the instance.  The following policies are enabled:",
+      "simple": {
+        "simple_policies": "Instance-specific Policies",
+        "accept": "Accept",
+        "accept_desc": "This instance only accepts messages from the following instances:",
+        "reject": "Reject",
+        "reject_desc": "This instance will not accept messages from the following instances:",
+        "quarantine": "Quarantine",
+        "quarantine_desc": "This instance will send only public posts to the following instances:",
+        "ftl_removal": "Removal from \"The Whole Known Network\" Timeline",
+        "ftl_removal_desc": "This instance removes these instances from \"The Whole Known Network\" timeline:",
+        "media_removal": "Media Removal",
+        "media_removal_desc": "This instance removes media from posts on the following instances:",
+        "media_nsfw": "Media Force-set As Sensitive",
+        "media_nsfw_desc": "This instance forces media to be set sensitive in posts on the following instances:"
       }
-    }
+    },
+    "staff": "Staff"
   },
   "chat": {
     "title": "Chat"
@@ -61,6 +63,7 @@
     "optional": "optional",
     "show_more": "Show more",
     "show_less": "Show less",
+    "dismiss": "Dismiss",
     "cancel": "Cancel",
     "disable": "Disable",
     "enable": "Enable",
@@ -293,6 +296,7 @@
     "follow_import": "Follow import",
     "follow_import_error": "Error importing followers",
     "follows_imported": "Follows imported! Processing them will take a while.",
+    "accent": "Accent",
     "foreground": "Foreground",
     "general": "General",
     "hide_attachments_in_convo": "Hide attachments in conversations",
@@ -423,7 +427,24 @@
         "save_load_hint": "\"Keep\" options preserve currently set options when selecting or loading themes, it also stores said options when exporting a theme. When all checkboxes unset, exporting theme will save everything.",
         "reset": "Reset",
         "clear_all": "Clear all",
-        "clear_opacity": "Clear opacity"
+        "clear_opacity": "Clear opacity",
+        "load_theme": "Load theme",
+        "keep_as_is": "Keep as is",
+        "use_snapshot": "Old version",
+        "use_source": "New version",
+        "help": {
+          "upgraded_from_v2": "PleromaFE has been upgraded, theme could look a little bit different than you remember.",
+          "v2_imported": "File you imported was made for older FE. We try to maximize compatibility but there still could be inconsitencies.",
+          "future_version_imported": "File you imported was made in newer version of FE.",
+          "older_version_imported": "File you imported was made in older version of FE.",
+          "snapshot_present": "Theme snapshot is loaded, so all values are overriden. You can load theme's actual data instead.",
+          "snapshot_missing": "No theme snapshot was in the file so it could look different than originally envisioned.",
+          "fe_upgraded": "PleromaFE's theme engine upgraded after version update.",
+          "fe_downgraded": "PleromaFE's version rolled back.",
+          "migration_snapshot_ok": "Just to be safe, theme snapshot loaded. You can try loading theme data.",
+          "migration_napshot_gone": "For whatever reason snapshot was missing, some stuff could look different than you remember.",
+          "snapshot_source_mismatch": "Versions conflict: most likely FE was rolled back and updated again, if you changed theme using older version of FE you most likely want to use old version, otherwise use new version."
+        }
       },
       "common": {
         "color": "Color",
@@ -452,14 +473,27 @@
         "alert": "Alert background",
         "alert_error": "Error",
         "alert_warning": "Warning",
+        "alert_neutral": "Neutral",
+        "post": "Posts/User bios",
         "badge": "Badge background",
+        "popover": "Tooltips, menus, popovers",
         "badge_notification": "Notification",
         "panel_header": "Panel header",
         "top_bar": "Top bar",
         "borders": "Borders",
         "buttons": "Buttons",
         "inputs": "Input fields",
-        "faint_text": "Faded text"
+        "faint_text": "Faded text",
+        "underlay": "Underlay",
+        "poll": "Poll graph",
+        "icons": "Icons",
+        "highlight": "Highlighted elements",
+        "pressed": "Pressed",
+        "selectedPost": "Selected post",
+        "selectedMenu": "Selected menu item",
+        "disabled": "Disabled",
+        "toggled": "Toggled",
+        "tabs": "Tabs"
       },
       "radii": {
         "_tab_label": "Roundness"
@@ -472,7 +506,7 @@
         "blur": "Blur",
         "spread": "Spread",
         "inset": "Inset",
-        "hint": "For shadows you can also use --variable as a color value to use CSS3 variables. Please note that setting opacity won't work in this case.",
+        "hintV3": "For shadows you can also use the {0} notation to use other color slot.",
         "filter_hint": {
           "always_drop_shadow": "Warning, this shadow always uses {0} when browser supports it.",
           "drop_shadow_syntax": "{0} does not support {1} parameter and {2} keyword.",
