@@ -146,7 +146,24 @@
                     :placeholder="$t('settings.profile_fields.value')"
                   >
                 </EmojiInput>
+                <div
+                  class="icon-container"
+                >
+                  <i
+                    v-show="newFields.length > 1"
+                    class="icon-cancel"
+                    @click="deleteField(index)"
+                  />
+                </div>
               </div>
+              <a
+                v-if="newFields.length < maxFields"
+                class="add-field faint"
+                @click="addField"
+              >
+                <i class="icon-plus" />
+                {{ $t("settings.profile_fields.add_field") }}
+              </a>
             </div>
             <button
               :disabled="newName && newName.length === 0"
@@ -678,6 +695,14 @@
     &>.emoji-input {
       flex: 1 1 auto;
       margin: 0 .2em .5em;
+    }
+
+    &>.icon-container {
+      width: 20px;
+
+      &>.icon-cancel {
+        vertical-align: sub;
+      }
     }
   }
 }

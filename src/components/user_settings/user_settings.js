@@ -179,6 +179,16 @@ const UserSettings = {
     changeVis (visibility) {
       this.newDefaultScope = visibility
     },
+    addField () {
+      if (this.newFields.length < this.maxFields) {
+        this.newFields.push({ name: '', value: '' })
+        return true
+      }
+      return false
+    },
+    deleteField (index, event) {
+      this.$delete(this.newFields, index)
+    },
     uploadFile (slot, e) {
       const file = e.target.files[0]
       if (!file) { return }
