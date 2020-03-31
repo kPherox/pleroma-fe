@@ -49,6 +49,7 @@ const UserSettings = {
       newLocked: this.$store.state.users.currentUser.locked,
       newNoRichText: this.$store.state.users.currentUser.no_rich_text,
       newDefaultScope: this.$store.state.users.currentUser.default_scope,
+      newFields: this.$store.state.users.currentUser.fields.map(field => ({ name: field.name, value: field.value })),
       hideFollows: this.$store.state.users.currentUser.hide_follows,
       hideFollowers: this.$store.state.users.currentUser.hide_followers,
       hideFollowsCount: this.$store.state.users.currentUser.hide_follows_count,
@@ -142,10 +143,6 @@ const UserSettings = {
     maxFields () {
       return this.fieldsLimits ? this.fieldsLimits.maxFields : 0
     },
-    newFields () {
-      return this.$store.state.users.currentUser.fields
-        .map(field => ({ name: field.name, value: field.value }))
-    },
     currentSaveStateNotice () {
       return this.$store.state.interface.settings.currentSaveStateNotice
     },
@@ -161,9 +158,6 @@ const UserSettings = {
   },
   methods: {
     updateProfile () {
-      let fields = this.newFields.filter(el => el != null && el.name !== '')
-      this.newFields.length = fields.length
-      merge(this.newFields, fields)
       this.$store.state.api.backendInteractor
         .updateProfile({
           params: {
@@ -172,7 +166,7 @@ const UserSettings = {
             // Backend notation.
             /* eslint-disable camelcase */
             display_name: this.newName,
-            fields_attributes: this.newFields,
+            fields_attributes: this.newFields.filter(el => el != null),
             default_scope: this.newDefaultScope,
             no_rich_text: this.newNoRichText,
             hide_follows: this.hideFollows,
@@ -184,6 +178,8 @@ const UserSettings = {
             show_role: this.showRole
             /* eslint-enable camelcase */
           } }).then((user) => {
+          this.newFields.splice(user.fields.length)
+          merge(this.newFields, user.fields)
           this.$store.commit('addNewUsers', [user])
           this.$store.commit('setCurrentUser', user)
         })
@@ -195,11 +191,15 @@ const UserSettings = {
     changeVis (visibility) {
       this.newDefaultScope = visibility
     },
-    getField (index) {
-      return this.newFields[index] || { name: '', value: '' }
+    addField () {
+      if (this.newFields.length < this.maxFields) {
+        this.newFields.push({ name: '', value: '' })
+        return true
+      }
+      return false
     },
-    setField (index, newField) {
-      this.newFields[index] = merge(this.getField(index), newField)
+    deleteField (index, event) {
+      this.$delete(this.newFields, index)
     },
     uploadFile (slot, e) {
       const file = e.target.files[0]

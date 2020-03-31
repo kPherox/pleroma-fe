@@ -328,6 +328,7 @@
     "play_videos_in_modal": "Play videos in a popup frame",
     "profile_fields": {
       "label": "Profile metadata",
+      "add_field": "Add Field",
       "name": "Label",
       "value": "Content"
     },
