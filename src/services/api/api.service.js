@@ -540,7 +540,7 @@ const fetchTimeline = ({
     params.push(['with_move', withMove])
   }
 
-  params.push(['count', 20])
+  params.push(['limit', 20])
   params.push(['with_muted', withMuted])
 
   const queryString = map(params, (param) => `${param[0]}=${param[1]}`).join('&')
@@ -880,12 +880,20 @@ const fetchPoll = ({ pollId, credentials }) => {
   )
 }
 
-const fetchFavoritedByUsers = ({ id }) => {
-  return promisedRequest({ url: MASTODON_STATUS_FAVORITEDBY_URL(id) }).then((users) => users.map(parseUser))
+const fetchFavoritedByUsers = ({ id, credentials }) => {
+  return promisedRequest({
+    url: MASTODON_STATUS_FAVORITEDBY_URL(id),
+    method: 'GET',
+    credentials
+  }).then((users) => users.map(parseUser))
 }
 
-const fetchRebloggedByUsers = ({ id }) => {
-  return promisedRequest({ url: MASTODON_STATUS_REBLOGGEDBY_URL(id) }).then((users) => users.map(parseUser))
+const fetchRebloggedByUsers = ({ id, credentials }) => {
+  return promisedRequest({
+    url: MASTODON_STATUS_REBLOGGEDBY_URL(id),
+    method: 'GET',
+    credentials
+  }).then((users) => users.map(parseUser))
 }
 
 const fetchEmojiReactions = ({ id, credentials }) => {
