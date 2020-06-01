@@ -8,8 +8,8 @@ import { extractCommit } from '../../services/version/version.service'
 import { instanceDefaultProperties, defaultState as configDefaultState } from '../../modules/config.js'
 import Checkbox from '../checkbox/checkbox.vue'
 
-const pleromaFeCommitUrl = 'https://git.pleroma.social/pleroma/pleroma-fe/commit/'
-const pleromaBeCommitUrl = 'https://git.pleroma.social/pleroma/pleroma/commit/'
+const pleromaFeCommitUrl = 'https://github.com/kPherox/pleroma-fe/commit/'
+const pleromaBeCommitUrl = 'https://github.com/kPherox/pleroma/commit/'
 
 const multiChoiceProperties = [
   'postContentType',

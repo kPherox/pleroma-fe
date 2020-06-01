@@ -111,6 +111,9 @@ const setSettings = async ({ apiConfig, staticConfig, store }) => {
   copyInstanceOption('showFeaturesPanel')
   copyInstanceOption('hideSitename')
 
+  copyInstanceOption('showPublicTimeline')
+  copyInstanceOption('showPublicExternalTimeline')
+
   return store.dispatch('setTheme', config['theme'])
 }
 
@@ -205,6 +208,8 @@ const getNodeInfo = async ({ store }) => {
       store.dispatch('setInstanceOption', { name: 'pollsAvailable', value: features.includes('polls') })
       store.dispatch('setInstanceOption', { name: 'pollLimits', value: metadata.pollLimits })
       store.dispatch('setInstanceOption', { name: 'mailerEnabled', value: metadata.mailerEnabled })
+
+      store.dispatch('setInstanceOption', { name: 'fieldsLimits', value: metadata.fieldsLimits })
 
       store.dispatch('setInstanceOption', { name: 'restrictedNicknames', value: metadata.restrictedNicknames })
       store.dispatch('setInstanceOption', { name: 'postFormats', value: metadata.postFormats })

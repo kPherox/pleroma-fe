@@ -69,7 +69,7 @@
           v-if="currentUser && currentUser.locked"
           @click="toggleDrawer"
         >
-          <router-link to="/friend-requests">
+          <router-link :to="{ name: 'friend-requests' }">
             <i class="button-icon icon-user-plus" /> {{ $t("nav.friend_requests") }}
             <span
               v-if="followRequestCount > 0"
@@ -80,18 +80,18 @@
           </router-link>
         </li>
         <li
-          v-if="currentUser || !privateMode"
+          v-if="currentUser || !privateMode && $store.state.instance.showPublicTimeline"
           @click="toggleDrawer"
         >
-          <router-link to="/main/public">
+          <router-link :to="{ name: 'public-timeline' }">
             <i class="button-icon icon-users" /> {{ $t("nav.public_tl") }}
           </router-link>
         </li>
         <li
-          v-if="federating && (currentUser || !privateMode)"
+          v-if="federating && (currentUser || !privateMode && $store.state.instance.showPublicExternalTimeline)"
           @click="toggleDrawer"
         >
-          <router-link to="/main/all">
+          <router-link :to="{ name: 'public-external-timeline' }">
             <i class="button-icon icon-globe" /> {{ $t("nav.twkn") }}
           </router-link>
         </li>
