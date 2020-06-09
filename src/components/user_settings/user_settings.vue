@@ -155,7 +155,7 @@
                   <i
                     v-show="newFields.length > 1"
                     class="icon-cancel"
-                    @click="deleteField(i)"
+                    @click="deleteField(index)"
                   />
                 </div>
               </div>
