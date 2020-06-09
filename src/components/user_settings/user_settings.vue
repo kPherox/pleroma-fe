@@ -125,48 +125,35 @@
             <div v-if="maxFields > 0">
               <p>{{ $t('settings.profile_fields.label') }}</p>
               <div
-                v-for="(_, i) in newFields"
+                v-for="(_, i) in maxFields"
                 :key="i"
                 class="profile-fields"
               >
                 <EmojiInput
-                  v-model="newFields[i].name"
                   :suggest="emojiSuggestor"
+                  :value="getField(i).name"
                   hide-emoji-button
+                  @input="setField(i, { name: $event.target.value })"
                 >
                   <input
-                    v-model="newFields[i].name"
                     :placeholder="$t('settings.profile_fields.name')"
+                    :value="getField(i).name"
+                    @input="setField(i, { name: $event.target.value })"
                   >
                 </EmojiInput>
                 <EmojiInput
-                  v-model="newFields[i].value"
                   :suggest="emojiSuggestor"
+                  :value="getField(i).value"
                   hide-emoji-button
+                  @input="setField(i, { value: $event.target.value })"
                 >
                   <input
-                    v-model="newFields[i].value"
                     :placeholder="$t('settings.profile_fields.value')"
+                    :value="getField(i).value"
+                    @input="setField(i, { value: $event.target.value })"
                   >
                 </EmojiInput>
-                <div
-                  class="icon-container"
-                >
-                  <i
-                    v-show="newFields.length > 1"
-                    class="icon-cancel"
-                    @click="deleteField(index)"
-                  />
-                </div>
               </div>
-              <a
-                v-if="newFields.length < maxFields"
-                class="add-field faint"
-                @click="addField"
-              >
-                <i class="icon-plus" />
-                {{ $t("settings.profile_fields.add_field") }}
-              </a>
             </div>
             <button
               :disabled="newName && newName.length === 0"
@@ -777,14 +764,6 @@
     &>.emoji-input {
       flex: 1 1 auto;
       margin: 0 .2em .5em;
-    }
-
-    &>.icon-container {
-      width: 20px;
-
-      &>.icon-cancel {
-        vertical-align: sub;
-      }
     }
   }
 }
