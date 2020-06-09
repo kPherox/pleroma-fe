@@ -1,7 +1,6 @@
 import unescape from 'lodash/unescape'
 import get from 'lodash/get'
 import map from 'lodash/map'
-import merge from 'lodash/merge'
 import reject from 'lodash/reject'
 import TabSwitcher from '../tab_switcher/tab_switcher.js'
 import ImageCropper from '../image_cropper/image_cropper.vue'
@@ -136,16 +135,6 @@ const UserSettings = {
         direct: { selected: this.newDefaultScope === 'direct' }
       }
     },
-    fieldsLimits () {
-      return this.$store.state.instance.fieldsLimits
-    },
-    maxFields () {
-      return this.fieldsLimits ? this.fieldsLimits.maxFields : 0
-    },
-    newFields () {
-      return this.$store.state.users.currentUser.fields
-        .map(field => ({ name: field.name, value: field.value }))
-    },
     currentSaveStateNotice () {
       return this.$store.state.interface.settings.currentSaveStateNotice
     },
@@ -161,9 +150,6 @@ const UserSettings = {
   },
   methods: {
     updateProfile () {
-      let fields = this.newFields.filter(el => el != null && el.name !== '')
-      this.newFields.length = fields.length
-      merge(this.newFields, fields)
       this.$store.state.api.backendInteractor
         .updateProfile({
           params: {
@@ -172,7 +158,6 @@ const UserSettings = {
             // Backend notation.
             /* eslint-disable camelcase */
             display_name: this.newName,
-            fields_attributes: this.newFields,
             default_scope: this.newDefaultScope,
             no_rich_text: this.newNoRichText,
             hide_follows: this.hideFollows,
@@ -194,12 +179,6 @@ const UserSettings = {
     },
     changeVis (visibility) {
       this.newDefaultScope = visibility
-    },
-    getField (index) {
-      return this.newFields[index] || { name: '', value: '' }
-    },
-    setField (index, newField) {
-      this.newFields[index] = merge(this.getField(index), newField)
     },
     uploadFile (slot, e) {
       const file = e.target.files[0]
