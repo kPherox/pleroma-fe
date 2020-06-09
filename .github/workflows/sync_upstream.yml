@@ -1,0 +1,26 @@
+name: sync upstream
+
+on:
+  schedule:
+    - cron: '15 */1 * * *'
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+ 
+    - name: setup config
+      run: |
+        git remote set-url origin https://${GITHUB_ACTOR}:${{ secrets.GITHUB_TOKEN }}@github.com/${GITHUB_REPOSITORY}.git
+        git remote add upstream https://git.pleroma.social/pleroma/pleroma-fe.git
+    - name: fetch upstream
+      run: |
+        git fetch --tags
+        git fetch upstream develop:develop
+    - name: push all
+      run: |
+        git push origin --all
+        git push origin --tags

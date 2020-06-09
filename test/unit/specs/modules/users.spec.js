@@ -18,6 +18,8 @@ describe('The users module', () => {
       expect(state.users).to.eql([user])
       expect(state.users[0].name).to.eql('Dude')
     })
+
+    })
   })
 
   describe('findUser', () => {
