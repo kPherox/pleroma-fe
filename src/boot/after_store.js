@@ -110,6 +110,7 @@ const setSettings = async ({ apiConfig, staticConfig, store }) => {
   copyInstanceOption('alwaysShowSubjectInput')
   copyInstanceOption('showFeaturesPanel')
   copyInstanceOption('hideSitename')
+  copyInstanceOption('sidebarRight')
 
   copyInstanceOption('showPublicTimeline')
   copyInstanceOption('showPublicExternalTimeline')
