@@ -17,7 +17,7 @@
   "nsfwCensorImage": "",
   "postContentType": "text/plain",
   "redirectRootLogin": "/main/friends",
-  "redirectRootNoLogin": "/main/all",
+  "redirectRootNoLogin": "/about",
   "scopeCopy": true,
   "showFeaturesPanel": true,
   "showInstanceSpecificPanel": false,
