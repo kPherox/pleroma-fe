@@ -120,6 +120,7 @@
     "public_tl": "Public Timeline",
     "timeline": "Timeline",
     "twkn": "The Whole Known Network",
+    "bookmarks": "Bookmarks",
     "user_search": "User Search",
     "search": "Search",
     "who_to_follow": "Who to follow",
@@ -266,6 +267,7 @@
     "block_import_error": "Error importing blocks",
     "blocks_imported": "Blocks imported! Processing them will take a while.",
     "blocks_tab": "Blocks",
+    "bot": "This is a bot account",
     "btnRadius": "Buttons",
     "cBlue": "Blue (Reply, follow)",
     "cGreen": "Green (Retweet)",
@@ -333,6 +335,12 @@
     "loop_video_silent_only": "Loop only videos without sound (i.e. Mastodon's \"gifs\")",
     "mutes_tab": "Mutes",
     "play_videos_in_modal": "Play videos in a popup frame",
+    "profile_fields": {
+      "label": "Profile metadata",
+      "add_field": "Add Field",
+      "name": "Label",
+      "value": "Content"
+    },
     "use_contain_fit": "Don't crop the attachment in thumbnails",
     "name": "Name",
     "name_bio": "Name & Bio",
@@ -610,6 +618,7 @@
     "no_retweet_hint": "Post is marked as followers-only or direct and cannot be repeated",
     "repeated": "repeated",
     "show_new": "Show new",
+    "reload": "Reload",
     "up_to_date": "Up-to-date",
     "no_more_statuses": "No more statuses",
     "no_statuses": "No statuses"
@@ -621,6 +630,8 @@
     "pin": "Pin on profile",
     "unpin": "Unpin from profile",
     "pinned": "Pinned",
+    "bookmark": "Bookmark",
+    "unbookmark": "Unbookmark",
     "delete_confirm": "Do you really want to delete this status?",
     "reply_to": "Reply to",
     "replies_list": "Replies:",
@@ -629,7 +640,11 @@
     "status_unavailable": "Status unavailable",
     "copy_link": "Copy link to status",
     "thread_muted": "Thread muted",
-    "thread_muted_and_words": ", has words:"
+    "thread_muted_and_words": ", has words:",
+    "show_full_subject": "Show full subject",
+    "hide_full_subject": "Hide full subject",
+    "show_content": "Show content",
+    "hide_content": "Hide content"
   },
   "user_card": {
     "approve": "Approve",
@@ -712,7 +727,8 @@
     "add_reaction": "Add Reaction",
     "user_settings": "User Settings",
     "accept_follow_request": "Accept follow request",
-    "reject_follow_request": "Reject follow request"
+    "reject_follow_request": "Reject follow request",
+    "bookmark": "Bookmark"
   },
   "upload": {
     "error": {
