@@ -1,0 +1,45 @@
+# This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
+
+name: Deploy
+
+on:
+  push:
+    branches: [ pl.kpherox.dev ]
+
+jobs:
+
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup Node
+      uses: actions/setup-node@v1
+      with:
+        node-version: '12.x'
+    - name: Install dependencies
+      run: yarn install --no-progress
+    - name: Build
+      run: yarn build
+
+  deploy:
+    name: Deploy
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Generate ssh key
+      run: echo "$DEPLOY_KEY" > key && chmod 600 key
+      env:
+        DEPLOY_KEY: ${{ secrets.DEPLOY_KEY }}
+    - name: Deploy
+      run: |
+        rsync -a --delete-after -e "ssh -i ./key -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -p ${DEPLOY_PORT}" dist/static/ $DEPLOY_USER@$DEPLOY_HOST:$DEPLOY_PATH/static
+        rsync -e "ssh -i ./key -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -p ${DEPLOY_PORT}" dist/index.html $DEPLOY_USER@$DEPLOY_HOST:$DEPLOY_PATH
+      env:
+        DEPLOY_USER: ${{ secrets.DEPLOY_USER }}
+        DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
+        DEPLOY_PORT: ${{ secrets.DEPLOY_PORT }}
+        DEPLOY_PATH: ${{ secrets.DEPLOY_PATH }}
