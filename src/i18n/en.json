@@ -164,6 +164,9 @@
     "load_all_hint": "Loaded first {saneAmount} emoji, loading all emoji may cause performance issues.",
     "load_all": "Loading all {emojiAmount} emoji"
   },
+  "errors": {
+    "storage_unavailable": "Pleroma could not access browser storage. Your login or your local settings won't be saved and you might encounter unexpected issues. Try enabling cookies."
+  },
   "interactions": {
     "favs_repeats": "Repeats and Favorites",
     "follows": "New follows",
@@ -175,6 +178,7 @@
     "account_not_locked_warning": "Your account is not {0}. Anyone can follow you to view your follower-only posts.",
     "account_not_locked_warning_link": "locked",
     "attachments_sensitive": "Mark attachments as sensitive",
+    "media_description": "Media description",
     "content_type": {
       "text/plain": "Plain text",
       "text/html": "HTML",
@@ -186,6 +190,10 @@
     "direct_warning_to_all": "This post will be visible to all the mentioned users.",
     "direct_warning_to_first_only": "This post will only be visible to the mentioned users at the beginning of the message.",
     "posting": "Posting",
+    "preview": "Preview",
+    "preview_empty": "Empty",
+    "empty_status_error": "Can't post an empty status with no files",
+    "media_description_error": "Failed to update media, try again",
     "scope_notice": {
       "public": "This post will be visible to everyone",
       "private": "This post will be visible to your followers only",
@@ -282,9 +290,7 @@
     "collapse_subject": "Collapse posts with subjects",
     "composing": "Composing",
     "confirm_new_password": "Confirm new password",
-    "current_avatar": "Your current avatar",
     "current_password": "Current password",
-    "current_profile_banner": "Your current profile banner",
     "mutes_and_blocks": "Mutes and Blocks",
     "data_import_export_tab": "Data Import / Export",
     "default_vis": "Default visibility scope",
@@ -391,6 +397,12 @@
     "set_new_avatar": "Set new avatar",
     "set_new_profile_background": "Set new profile background",
     "set_new_profile_banner": "Set new profile banner",
+    "reset_avatar": "Reset avatar",
+    "reset_profile_background": "Reset profile background",
+    "reset_profile_banner": "Reset profile banner",
+    "reset_avatar_confirm": "Do you really want to reset the avatar?",
+    "reset_banner_confirm": "Do you really want to reset the banner?",
+    "reset_background_confirm": "Do you really want to reset the background?",
     "settings": "Settings",
     "subject_input_always_show": "Always show subject field",
     "subject_line_behavior": "Copy subject when replying",

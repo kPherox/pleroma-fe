@@ -141,37 +141,17 @@ const updateNotificationSettings = ({ credentials, settings }) => {
   }).then((data) => data.json())
 }
 
-const updateAvatar = ({ credentials, avatar }) => {
+const updateProfileImages = ({ credentials, avatar = null, banner = null, background = null }) => {
   const form = new FormData()
-  form.append('avatar', avatar)
-  return fetch(MASTODON_PROFILE_UPDATE_URL, {
-    headers: authHeaders(credentials),
-    method: 'PATCH',
-    body: form
-  }).then((data) => data.json())
-    .then((data) => parseUser(data))
-}
-
-const updateBg = ({ credentials, background }) => {
-  const form = new FormData()
-  form.append('pleroma_background_image', background)
+  if (avatar !== null) form.append('avatar', avatar)
+  if (banner !== null) form.append('header', banner)
+  if (background !== null) form.append('pleroma_background_image', background)
   return fetch(MASTODON_PROFILE_UPDATE_URL, {
     headers: authHeaders(credentials),
     method: 'PATCH',
     body: form
   })
     .then((data) => data.json())
-    .then((data) => parseUser(data))
-}
-
-const updateBanner = ({ credentials, banner }) => {
-  const form = new FormData()
-  form.append('header', banner)
-  return fetch(MASTODON_PROFILE_UPDATE_URL, {
-    headers: authHeaders(credentials),
-    method: 'PATCH',
-    body: form
-  }).then((data) => data.json())
     .then((data) => parseUser(data))
 }
 
@@ -645,7 +625,8 @@ const postStatus = ({
   poll,
   mediaIds = [],
   inReplyToStatusId,
-  contentType
+  contentType,
+  preview
 }) => {
   const form = new FormData()
   const pollOptions = poll.options || []
@@ -675,6 +656,9 @@ const postStatus = ({
   if (inReplyToStatusId) {
     form.append('in_reply_to_id', inReplyToStatusId)
   }
+  if (preview) {
+    form.append('preview', 'true')
+  }
 
   return fetch(MASTODON_POST_STATUS_URL, {
     body: form,
@@ -682,13 +666,7 @@ const postStatus = ({
     headers: authHeaders(credentials)
   })
     .then((response) => {
-      if (response.ok) {
-        return response.json()
-      } else {
-        return {
-          error: response
-        }
-      }
+      return response.json()
     })
     .then((data) => data.error ? data : parseStatus(data))
 }
@@ -708,6 +686,17 @@ const uploadMedia = ({ formData, credentials }) => {
   })
     .then((data) => data.json())
     .then((data) => parseAttachment(data))
+}
+
+const setMediaDescription = ({ id, description, credentials }) => {
+  return promisedRequest({
+    url: `${MASTODON_MEDIA_UPLOAD_URL}/${id}`,
+    method: 'PUT',
+    headers: authHeaders(credentials),
+    payload: {
+      description
+    }
+  }).then((data) => parseAttachment(data))
 }
 
 const importBlocks = ({ file, credentials }) => {
@@ -1179,6 +1168,7 @@ const apiService = {
   postStatus,
   deleteStatus,
   uploadMedia,
+  setMediaDescription,
   fetchMutes,
   muteUser,
   unmuteUser,
@@ -1196,10 +1186,8 @@ const apiService = {
   deactivateUser,
   register,
   getCaptcha,
-  updateAvatar,
-  updateBg,
+  updateProfileImages,
   updateProfile,
-  updateBanner,
   importBlocks,
   importFollows,
   deleteAccount,
